@@ -1,0 +1,37 @@
+nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+  div.container-fluid
+    div#navbar.navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li style="font-size:1.5em;"
+          a href="#" 查询审批系统
+        li
+          a href="../?lock=#{@seclock}" 填写查询申请
+        li.active
+          a href="#" 查看审批情况
+div.container-fluid style="margin-top: 80px;"
+  div.page-header
+    h2.text-center 审批情况表
+  div.row
+    div.col-md-1
+    div.col-md-10
+      table.table.table-bordered.table-striped.table-hover.table-condensed
+        tr
+          th 申请编号
+          th 申请时间
+          th 申请事项
+          th 批准人
+          th 批准时间
+          th 状态或操作
+        - @applications.each_row do |row|
+          tr
+            td #{row[0]}
+            td #{row[1]}
+            td #{row[2]}
+            td #{row[3]}
+            td #{row[4]} 
+            - if(row[5]=="1")
+              td 请等待领导批准
+            - else
+              - digest = row[7].nil? ? Base64.urlsafe_encode64(row[6]+"|"+row[0]+"|"+Time.now.to_s.slice(0,19)) : Base64.encode64(row[6]+"|"+row[0]+"|"+row[7].to_s.slice(0,19))
+              td
+                a href="../portal?lock=#{digest}" 请点此链接进行查询

@@ -1,0 +1,46 @@
+nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+  div.container-fluid
+    div#navbar.navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li style="font-size:1.5em;"
+          a href="#" 查询审批系统
+        li.active
+          a href="#" 直接查询数据
+        li
+          a href="./authentication/cs_view_queries?lock=#{@seclock}" 查看查询记录
+
+div class="jumbotron" style="width:700px; margin-left: auto; margin-right: auto; margin-top: 60px;"
+  div class="form-group" style="margin-left: 30px; margin-right: 30px;"
+    h3 计算机处人员请输入密码进入查询系统：
+    form role="form" action="#" method="post" onsubmit="return false" 
+      div.form-group
+        input type="password" class="form-control" id="qpass" name="qpass" placeholder="请输入密码" required="yes"
+      div.form-group
+        button type="submit" class="btn btn-primary" style="margin-left: 2px;" id="submit" 提交
+      input type="hidden" id="useremail" value="#{@useremail}"
+      input type="hidden" id="usertype" value="#{@usertype}"
+
+  p#msg style="color:red;margin-left: 25px;"
+  javascript:
+    document.getElementById("submit").onclick = function() {
+      if(document.getElementById("qpass").value === "") {     
+        return 1;
+      }
+      var request = new XMLHttpRequest();
+      request.open("GET", "./authentication/suquery?qpass="+document.getElementById("qpass").value+"&useremail="+document.getElementById("useremail").value+"&usertype="+document.getElementById("usertype").value);
+      request.send();
+      request.onreadystatechange = function() {
+        if(request.readyState === 4) {
+          if(request.status === 200) {
+            var data = JSON.parse(request.responseText);
+            if(data.success) {
+              window.location.href="./portal?lock="+data.digest;
+            } else {
+              document.getElementById("msg").innerHTML = "密码有误，请重新输入！";
+            }
+          } else {
+            alert("访问服务器出错！");
+          }
+        }
+      }
+    }

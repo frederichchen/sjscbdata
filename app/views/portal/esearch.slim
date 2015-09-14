@@ -1,0 +1,23 @@
+== partial :'partials/esnav'
+div class="container" style="text-align:center;margin-top:200px;"
+  h2 style="display:inline;"信息敏感
+  img src="../img/logo.png" style="display:inline;"
+  h2 style="display:inline;" 请勿泄漏
+  h4 style="color:red;" 请注意！您的每次查询都会被记录，请不要进行与项目无关的查询！
+  form class="form-inline" role="form" action="../elocater" method="get"
+    div.form-group
+      input type="text" class="form-control" id="searchvalue" name="searchvalue" placeholder="请输入企业名称" maxlength="30" size="30" required="yes"  
+    div.form-group
+      select class="selectpicker" data-width="auto" name="type"
+        option value="gs" 工商
+        option value="ds" 税务  
+    div.checkbox
+      label
+        input type="checkbox" name="fuzzy" value="yes" 模糊查询      
+    button type="submit" class="btn btn-primary" 搜索
+
+  - if defined? errors
+    h4 style="color:red;" 出错啦！您之前的输入有如下错误：
+    ul
+      - errors.each do |error|
+        li #{error}

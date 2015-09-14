@@ -1,0 +1,45 @@
+== partial :'partials/cgsnav'
+div class="container" style="text-align:center;margin-top:200px;"
+  h2 style="display:inline;" 信息敏感
+  img src="../img/logo.png" style="display:inline;"
+  h2 style="display:inline;" 请勿泄漏
+  h4 style="color:red;" 请注意！您的每次查询都会被记录，请不要进行与项目无关的查询！
+  h4 请注意！地市为必填项，单位名和人名至少要填一项！单位名为模糊匹配，人名为精确匹配。
+  form class="form-inline" role="form" action="../cglocater" method="get" onsubmit="return validate_input()"
+    div.form-group
+      select class="selectpicker" data-width="auto" name="city"
+        option value="0000" 请选择地市*
+        option value="5100" 四川省本级
+        option value="5101" 成都市
+        option value="5103" 自贡市
+        option value="5104" 攀枝花市
+        option value="5105" 泸州市
+        option value="5106" 德阳市
+        option value="5107" 绵阳市
+        option value="5108" 广元市
+        option value="5109" 遂宁市
+        option value="5110" 内江市
+        option value="5111" 乐山市
+        option value="5113" 南充市
+        option value="5114" 眉山市
+        option value="5115" 宜宾市
+        option value="5116" 广安市
+        option value="5117" 达州市
+        option value="5118" 雅安市
+        option value="5119" 巴中市
+        option value="5120" 资阳市
+        option value="5132" 阿坝自治州
+        option value="5133" 甘孜自治州
+        option value="5114" 凉山自治州        
+    div.form-group
+      input type="text" class="form-control" id="dept" name="department" placeholder="请输入单位名" maxlength="30" size="30"
+    div.form-group
+      input type="text" class="form-control" id="pname" name="pname" placeholder="请输入人名" maxlength="12" size="12"
+    input type="hidden" name="page" value="0"
+    button type="submit" class="btn btn-primary" 搜索
+
+  - if defined? errors
+    h4 style="color:red;" 出错啦！您之前的输入有如下错误：
+    ul
+      - errors.each do |error|
+        li #{error}

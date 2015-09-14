@@ -1,0 +1,30 @@
+== partial :'partials/esnav'
+
+div.container-fluid style="margin-top: 80px;"
+  div.page-header
+    h2.text-center style="color:red;" 您查询的企业名称"#{sv}"在工商库中的匹配情况如下
+  div.row
+    div.col-md-1
+    div.col-md-10
+      table#datatable.table.table-bordered.table-striped.table-hover.table-condensed
+        tr
+          - results.fields.each do |field| 
+            th #{field}
+          th 操作
+        - results.each_row do |row| 
+          tr
+            - row.each do |element| 
+              - if element.class=="BigDecimal"
+                td #{element.to_s('F')}
+              - else
+                td #{element}                                    
+            td               
+              a href="../elocater/gsdetail?searchvalue=#{row[0]}" 查企业详细信息
+    div.col-md-1
+
+  div.row
+    div.col-md-1
+    div.col-md-5
+      p
+        a href="../portal/psearch" 返回
+    div.col-md-6

@@ -1,0 +1,49 @@
+nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+  div.container-fluid
+    div#navbar.navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li.active style="font-size:1.5em;"
+          a href="#" 成都办数据查询系统
+        li
+          a href="../portal/psearch" 查询个人信息
+        li
+          a href="../portal/esearch" 查询企业信息
+        li
+          a href="../portal/cgsearch" 查询财政供养信息
+        li
+          a href="../portal/about" 关于查询系统
+
+div class="header"
+  div.container
+    h1.text-center
+      | 欢迎使用成都办
+      img src="../img/logo.png"
+      | 数据查询系统
+    h4.text-center style="letter-spacing:3px;"欢迎您，#{@username}。您本次授权可以使用到#{session['atime']+3600}。
+
+div.container-fluid.introduction
+  div.row
+    div.col-md-3
+      div.feature
+        a href="../portal/psearch"
+          img src="../img/psearch.png"
+      div.intro
+        p 只要输入一个十五位或是十八位的身份证号，就能迅速找出此人的养老保险、住房公积金、个人所得税、开办企业和财政供养信息。
+    div.col-md-3
+      div.feature
+        a href="../portal/esearch"
+          img src="../img/esearch.png"
+      div.intro
+        p 通过企业名称进行精确匹配或模糊查询，找出该企业的工商登记信息，法人和股东情况以及纳税信息。
+    div.col-md-3
+      div.feature
+        a href="../portal/cgsearch"
+          img src="../img/cgsearch.png"
+      div.intro
+        p 通过“地区+单位名”或者“地区+人名”的方式，找出相应的财政供养人员的信息，了解其工作单位、级别、学历和编制情况。
+    div.col-md-3
+      div.feature
+        a href="../portal/about"
+          img src="../img/about.png"
+      div.intro
+        p 关于成都办数据查询系统

@@ -1,0 +1,53 @@
+nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+  div.container-fluid
+    div#navbar.navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li style="font-size:1.5em;"
+          a href="#" 查询审批系统
+        li
+          a href="../?lock=#{@seclock}" 直接查询数据
+        li
+          a href="./authorize?lock=#{@seclock}" 审核查询申请
+        li.active
+          a href="#" 查看查询记录
+
+div.container-fluid style="margin-top: 80px;"
+  div.row
+    div.col-md-3
+    div.col-md-6
+      form class="form-inline" role="form" method="get" action="./ld_view_queries" onsubmit="return validate_input()"
+        div.form-group
+          input class="datepicker" type="text" id="startdate" name="startdate" placeholder="开始日期(必填项)"
+        div.form-group
+          input class="datepicker" type="text" name="enddate" placeholder="结束日期(可选项)"
+        div.form-group
+          input type="text" name="querier" placeholder="查询人(可选项)"
+        input type="hidden" name="page" value="0"
+        input type="hidden" name="lock" value="#{@seclock}"
+        button type="submit" class="btn btn-primary" 查询
+    div.col-md-3
+  br
+  
+  - if !@queries.nil?
+    div.row
+      div.col-md-1
+      div.col-md-10
+        table.table.table-bordered.table-striped.table-hover.table-condensed
+          tr
+            - @queries.fields.each do |field| 
+              th #{field}
+          - @queries.each_row do |row| 
+            tr
+              - row.each do |element| 
+                td #{element}
+
+  div.row
+    div.col-md-2
+    div.col-md-5
+      - if defined?(purl) and purl != ""
+        a<><> href="./#{purl}" 上一页
+      - if defined?(nurl) and nurl != ""
+        a<><> href="./#{nurl}" 下一页
+      - if defined?(reccount)  
+        span 共#{reccount}条记录
+    div.col-md-5

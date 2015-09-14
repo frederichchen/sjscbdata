@@ -1,0 +1,26 @@
+== partial :'partials/esnav'
+
+div.container-fluid style="margin-top: 80px;"
+  div.page-header
+    h2.text-center style="color:red;" 您查询的企业的工商登记变更情况如下：
+  div.row
+    div.col-md-1
+    div.col-md-10
+      table#datatable.table.table-bordered.table-hover.table-condensed
+        tr
+          - results.fields.each do |field| 
+            th #{field}
+        - oddeven = "danger"
+        - results.each_row do |row|
+          tr class="#{oddeven}"
+            - row.each do |element| 
+              - if element.class=="BigDecimal"
+                td #{element.to_s('F')}
+              - else
+                td #{element}
+    div.col-md-1
+  div.row
+    div.col-md-1
+    div.col-md-11
+      p 
+        a href="javascript:history.back()" 返回

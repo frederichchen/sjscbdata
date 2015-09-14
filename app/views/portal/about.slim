@@ -1,0 +1,22 @@
+nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+  div.container-fluid
+    div#navbar.navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li style="font-size:1.5em;"
+          a href="#" 成都办数据中心查询系统
+        li
+          a href="./psearch" 查询个人信息
+        li
+          a href="./esearch" 查询企业信息
+        li
+          a href="./cgsearch" 查询财政供养信息
+        li.active
+          a href="#" 关于查询系统
+      p.navbar-text.navbar-right 您本次授权可以使用到#{session['atime']+3600}
+
+div class="jumbotron" style="width:900px; margin-top: 60px; margin-left: auto; margin-right: auto; font-size: 1.3em;"
+  div.container
+    p 成都办数据中心查询系统是审计署驻成都特派员办事处计算机审计处开发的查询系统，仅供成都办人员内部使用。
+    p 本程序推荐使用Windows 7搭配非IE浏览器（比如Firefox、Chrome、360浏览器及搜狗浏览器等的高速模式访问）。如果使用IE，则至少需要8.0版本及以上。
+    p
+      a href="javascript:history.back()" 返回

@@ -1,0 +1,69 @@
+== partial :'partials/esnav'
+
+div.container-fluid style="margin-top: 80px;"
+  div.page-header
+    h2.text-center style="color:red;" 您查询的企业的工商登记情况如下：
+  div.row
+    div.col-md-2
+    div.col-md-8
+      table#datatable.table.table-bordered.table-hover.table-condensed
+        tr.success
+          td colspan="2" 企业名称： #{results[0][0]}
+          td 企业类型：#{results[0][1]}
+          td 营业执照号码：#{results[0][2]}
+        tr.warning
+          td 注册资本(万元)：#{results[0][3]}
+          td 成立日期：#{results[0][4]}
+          td 住所：#{results[0][5]}
+          td 状态：#{results[0][6]}
+        tr.success
+          td colspan="2" 登记机关：#{results[0][7]}
+          td colspan="2" 经营范围：#{results[0][8]}
+        tr.warning
+          td 法人：#{results[0][9]}
+          td colspan="2" 法人证件号码：#{results[0][10]}
+          td
+            div.btn-group
+              button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                | 查询个人信息
+                span.caret
+              ul.dropdown-menu role="menu"
+                li
+                  a href="../plocater?type=sb&searchvalue=#{results[0][10]}" 查社保
+                li
+                  a href="../plocater?type=hj&searchvalue=#{results[0][10]}" 查户籍
+                li
+                  a href="../plocater?type=gs&searchvalue=#{results[0][10]}" 查工商
+                li
+                  a href="../plocater?type=ds&searchvalue=#{results[0][10]}" 查个税
+                li
+                  a href="../plocater?type=cg&searchvalue=#{results[0][10]}" 查财政供养
+        - results[1].each_row do |row|
+          tr
+            td 股东：#{row[0]}
+            td colspan="2" 股东证件号码：#{row[1]}
+            - if row[2] == "20"
+              td
+                div.btn-group
+                  button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                    | 查询个人信息
+                    span.caret
+                  ul.dropdown-menu role="menu"
+                    li
+                      a href="../plocater?type=sb&searchvalue=#{row[1]}" 查社保
+                    li
+                      a href="../plocater?type=hj&searchvalue=#{row[1]}" 查户籍
+                    li
+                      a href="../plocater?type=gs&searchvalue=#{row[1]}" 查工商
+                    li
+                      a href="../plocater?type=ds&searchvalue=#{row[1]}" 查个税
+                    li
+                      a href="../plocater?type=cg&searchvalue=#{row[1]}" 查财政供养
+    div.col-md-2
+
+  div.row
+    div.col-md-2
+    div.col-md-4
+      p 
+        a> href="./gschanges?searchvalue=#{sv}" 查询工商登记变更信息        
+        a href="../portal/esearch" 返回

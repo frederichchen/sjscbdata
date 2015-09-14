@@ -1,0 +1,36 @@
+div.header {
+    width: 100%;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.3em;
+    background-color:#cf4646;
+}
+
+h1.text-center {
+    color: white;
+    font-family: MSYH, Simhei, Sans;
+    letter-spacing: 10px;
+}
+
+div.introduction {
+    margin-top: 100px;
+}
+
+div.col-md-3 {
+    text-align: center;
+    padding: 40px;
+}
+
+div.intro p {
+    font-size: 1.7em;
+    margin-top: 20px;
+}
+
+a:hover img{
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+}

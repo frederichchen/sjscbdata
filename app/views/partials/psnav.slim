@@ -1,0 +1,15 @@
+nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+  div.container-fluid
+    div#navbar.navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li style="font-size:1.5em;"
+          a href="#" 成都办数据查询系统
+        li.active
+          a href="../portal/psearch" 查询个人信息
+        li
+          a href="../portal/esearch" 查询企业信息
+        li
+          a href="../portal/cgsearch" 查询财政供养信息
+        li
+          a href="../portal/about" 关于查询系统
+      p.navbar-text.navbar-right 您本次授权可以使用到#{session['atime']+3600}

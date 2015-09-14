@@ -1,0 +1,43 @@
+== partial :'partials/psnav'
+
+div.container-fluid style="margin-top: 80px;"
+  div.page-header
+    h2.text-center style="color:red;" 您查询的"#{sv}"在个税库中的匹配情况如下
+  div.row
+    div.col-md-1
+    div.col-md-10
+      table#datatable.table.table-bordered.table-striped.table-hover.table-condensed
+        tr
+          - results.fields.each do |field| 
+            th #{field}
+          th 操作
+        - results.each_row do |row|
+          tr
+            - row.each do |element| 
+              - if element.class=="BigDecimal"
+                td #{element.to_s('F')}
+              - else
+                td #{element}
+            td 
+              div.btn-group 
+                button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+                  | 更多查询
+                  span class="caret"
+                ul.dropdown-menu role="menu"
+                  li 
+                    a href="../plocater?type=sb&searchvalue=#{row[2]}" 查社保
+                  li
+                    a href="../plocater?type=hj&searchvalue=#{row[2]}" 查户籍
+                  li
+                    a href="../plocater?type=gs&searchvalue=#{row[2]}" 查工商                
+                  li 
+                    a href="../plocater?type=cg&searchvalue=#{row[2]}" 查财政供养
+    div.col-md-1
+
+  div.row
+    div.col-md-2
+    div.col-md-4
+      p
+        a<> download="社保#{sv}.csv" href="#" onclick="return ExcellentExport.csv(this, 'datatable',1);" 导出为CSV文件
+        a href="../portal/psearch" 返回
+    div.col-md-6

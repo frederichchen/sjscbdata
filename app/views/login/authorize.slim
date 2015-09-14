@@ -1,0 +1,38 @@
+nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+  div.container-fluid
+    div#inavbar.navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li style="font-size:1.5em;"
+          a href="#" 查询审批系统
+        li
+          a href="../?lock=#{@seclock}" 直接查询数据
+        li.active
+          a href="#" 审核查询申请
+        li
+          a href="./ld_view_queries?lock=#{@seclock}" 查看查询记录
+
+div.container-fluid style="margin-top: 80px;"
+  div.page-header
+    h2.text-center 查询申请审批表
+  div.row
+    div.col-md-1
+    div.col-md-10
+      table.table.table-bordered.table-striped.table-hover.table-condensed
+        tr
+          th 申请编号
+          th 申请人
+          th 所在处室
+          th 申请时间
+          th 申请事项
+          th 审批
+        - @applications.each_row do |row|
+          tr
+            td #{row[0]}
+            td #{row[1]}
+            td #{row[2]}
+            td #{row[3]}
+            td #{row[4]}
+            td
+              a> href="./authorize?lock=#{@seclock}&aid=#{row[0]}&permit=yes" 批准
+              a< href="./authorize?lock=#{@seclock}&aid=#{row[0]}&permit=no" 拒绝
+

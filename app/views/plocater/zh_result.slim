@@ -1,0 +1,23 @@
+== partial :'partials/psnav'
+- names = ["社保信息", "户籍信息", "工商信息", "个税信息", "财政供养信息"]
+- types = ["sb", "hj", "gs", "ds", "cg"]
+
+div.container-fluid style="margin-top: 80px;"
+  div.page-header
+    h2.text-center style="color:red;" 您查询的身份证号"#{sv}"的匹配情况如下：
+  div.row
+    div.col-md-1
+    div.col-md-10
+      - names.each_with_index do |name, i|
+        - if(!results[i].nil?)
+          h4 
+            a href="../plocater?type=#{types[i]}&searchvalue=#{sv}" #{name}
+          p #{results[i]}
+          br
+    div.col-md-1
+  div.row
+    div.col-md-1
+    div.col-md-3
+      p
+        a href="../portal/psearch" 返回
+    div.col-md-8
