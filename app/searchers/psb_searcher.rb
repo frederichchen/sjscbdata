@@ -6,7 +6,7 @@ class PSBSearcher
   attr_reader :stmt, :results
 
   def initialize(sv)
-    @stmt = "select DWMC 单位名称, ZJHM_ZL 身份证号15位, dq 地区, XM 姓名, CBNY 参保年月 from sb_personinfo where ZJHM_ZL='?'"
+    @stmt = "select DWMC 单位名称, ZJHM 身份证号, dq 地区, XM 姓名, CBNY 参保年月 from sb_personinfo where ZJHM_ZL='?'"
     @stmt.gsub!(/\?/, sv)
   end
 
