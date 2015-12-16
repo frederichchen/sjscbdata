@@ -8,7 +8,7 @@ class PZHSearcher
   def initialize(sv)
     @stmts = Array.new(5)
     @stmts[0] = "select distinct DWMC from sb_personinfo where ZJHM_ZL='#{sv}' and DWMC is not null limit 5"
-    @stmts[1] = "select SFZH, SBXM from hj_familyinfo where XXHH = (select distinct XXHH from hj_familyinfo where SFZH='#{sv}') and GX<>'非亲属'"
+    @stmts[1] = "select distinct 身份证号, 姓名 from hjinfoandczgy where 户号 in (select 户号 from hjinfoandczgy where 身份证号='#{sv}') and 与户主关系<>'非亲属'"
     @stmts[2] = "select QYMC from gsdjxx where FRZJHM_ZL='#{sv}' union all select QYMC from gsdjxx where ID in (select ID from tzrczxx where GDZJHM_ZL='#{sv}')"
     @stmts[3] = "select FFYF, GZDW, SJYNSE from ds_gs2013 where ZZHM_ZL='#{sv}' limit 3"
     @stmts[4] = "select 工作单位, 职务, 状态 from czgy where sfz_zl='#{sv}'"

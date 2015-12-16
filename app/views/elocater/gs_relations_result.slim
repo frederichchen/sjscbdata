@@ -1,0 +1,116 @@
+== partial :'partials/esnav'
+
+div.container-fluid style="margin-top: 80px;"
+  div.page-header
+    h2.text-center style="color:red;" 您查询的企业的投资人关系图如下：
+  div.row 
+    div.col-md-2 style="height: 600px"
+    div#main.col-md-8 style="height: 600px"
+      javascript:
+        require(
+          [
+            'echarts',
+            'echarts/chart/force'
+          ],
+          function (ec) {            
+            var myChart = ec.init(document.getElementById('main'));       
+            option = {
+              title: {
+                text: '投资人及社会关系图',
+                subtext: '成都办数据中心提供',
+                x:'right',
+                y:'bottom'
+              },
+              tooltip: {
+                trigger: 'item',
+                formatter: '双击搜索 : {b}'
+              },
+              legend: {
+                x: 'center',
+                data:['目标企业','法人','自然人股东','企业股东','亲属']
+              },
+              series: [
+                {
+                  type:'force',
+                  name: "投资人关系图",
+                  ribbonType: false,
+                  categories: [
+                    {
+                      name: '目标企业'
+                    },
+                    {
+                      name: '法人'
+                    },
+                    {
+                      name: '自然人股东'
+                    },
+                    {
+                      name: '企业股东'
+                    },
+                    {
+                      name: '亲属'
+                    }
+                  ],
+                  itemStyle: {
+                    normal: {
+                      label: {
+                        show: true,
+                        textStyle: {
+                          color: '#333'
+                        }
+                      },
+                      nodeStyle: {
+                        brushType: 'both',
+                        borderColor: 'rgba(255,215,0,0.4)',
+                        borderWidth: 1
+                      },
+                      linkStyle: {
+                        type: 'line'
+                      }
+                    },
+                    emphasis: {
+                      label: {
+                        show: false
+                      },
+                      nodeStyle: {
+                      },
+                      linkStyle: {
+                      }
+                    }
+                  },
+                  useWorker: false,
+                  minRadius: 20,
+                  maxRadius: 50,
+                  gravity: 1.1,
+                  scaling: 1.1,
+                  roam: 'move'
+                }
+              ]
+            };
+            option.series[0].nodes = #{{results[0]}}
+            option.series[0].links = #{{results[1]}}
+            myChart.setOption(option);
+            myChart.on(ecConfig.EVENT.DBLCLICK, eConsole);
+          }
+        );
+        var ecConfig = require('echarts/config');
+        function eConsole(param) {
+          // 双击的如果是人，则转到搜索人的界面，否则转到查询企业的界面
+          if(param.value === 3 || param.value === 2)
+          {
+            window.location.href = "../plocater?type=zh&searchvalue=" + param.name
+          }
+          else if(param.value === 4 || param.value === 10)
+          {
+            window.location.href = "../elocater?type=gs&searchvalue=" + param.name
+          }
+          else
+          {
+          }
+        }
+    div.col-md-2
+  div.row
+    div.col-md-4
+    div.col-md-8  
+      p 
+        a href="javascript:history.back()" 返回

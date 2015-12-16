@@ -22,25 +22,25 @@ div class="jumbotron" style="width:700px; margin-left: auto; margin-right: auto;
 
   p#msg style="color:red;margin-left: 25px;"
   javascript:
-    document.getElementById("submit").onclick = function() {
-      if(document.getElementById("qpass").value === "") {     
-        return 1;
-      }
-      var request = new XMLHttpRequest();
-      request.open("GET", "./authentication/suquery?qpass="+document.getElementById("qpass").value+"&useremail="+document.getElementById("useremail").value+"&usertype="+document.getElementById("usertype").value);
-      request.send();
-      request.onreadystatechange = function() {
-        if(request.readyState === 4) {
-          if(request.status === 200) {
-            var data = JSON.parse(request.responseText);
+    window.onload = function(){
+      $("#submit").click(function(){
+        if($("#qpass").val() === "") {     
+          return 1;
+        }
+        $.ajax({
+          type: "GET",
+          url: "./authentication/suquery?qpass="+$("#qpass").val()+"&useremail="+$("#useremail").val()+"&usertype="+$("#usertype").val(),
+          dataType: "json",
+          success: function(data) {
             if(data.success) {
               window.location.href="./portal?lock="+data.digest;
             } else {
               document.getElementById("msg").innerHTML = "密码有误，请重新输入！";
             }
-          } else {
-            alert("访问服务器出错！");
+          },
+          error: function(jqXHR) {
+            alert("访问服务器出错！" + jqXHR.status);
           }
-        }
-      }
-    }
+        });
+      });
+    };

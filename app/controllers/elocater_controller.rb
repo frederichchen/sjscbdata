@@ -4,6 +4,7 @@ require_relative '../helpers/pg_connector'
 require_relative '../searchers/egs_searcher'
 require_relative '../searchers/egs_detail_searcher'
 require_relative '../searchers/egs_changes_searcher'
+require_relative '../searchers/egs_relations_searcher'
 
 class ELocaterController < ApplicationController
   get '/' do
@@ -62,6 +63,18 @@ class ELocaterController < ApplicationController
       locater = EGSChangesSearcher.new(sv)
       locater.make_query
       slim :'elocater/gs_changes_result', :locals => {:title => "工商登记变更情况", :sv => sv, :results => locater.results}
+    end
+  end
+
+  # 投资人关系图
+  get '/gsrelations' do
+    if(session['email'].nil? or session['atime'].nil? or session['aid'].nil? or request.referer.nil? or params[:searchvalue].nil?)
+      slim :not_authorized, :locals => {:title => "出错啦！"}
+    else
+      sv = params[:searchvalue]
+      locater = EGSRelationsSearcher.new(sv)
+      locater.make_query
+      slim :'elocater/gs_relations_result', :layout => :relations, :locals => {:title => "企业投资人关系图", :sv => sv, :results => locater.results}
     end
   end
 end
