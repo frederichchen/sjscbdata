@@ -23,24 +23,26 @@ class EGSRelationsSearcher
       qymc = row[0]
       frzjhm = row[2]
       nodes.push("{category: 0, name: '#{qymc}', value: 10}")
-      if row[3].nil?
-        nodes.push("{category: 1, name: '#{frzjhm}', label: '#{row[1]}', value: 3}")
-      else
-        nodes.push("{category: 1, name: '#{frzjhm}', label: '#{row[1]}(#{row[3]})', value: 3}")
-      end
-      links.push("{source: '#{qymc}', target: '#{frzjhm}', name: '法人代表'}")
-      PgConnector.instance.make_query(@stmts[2].gsub(/\?/, frzjhm)).each_row do |qs|
-        if qs[2].nil?
-          nodes.push("{category: 4, name: '#{qs[1]}', label: '#{qs[0]}', value: 2}")
+      if !frzjhm.nil?
+        if row[3].nil?
+          nodes.push("{category: 1, name: '#{frzjhm}', label: '#{row[1]}', value: 3}")
         else
-          nodes.push("{category: 4, name: '#{qs[1]}', label: '#{qs[0]}(#{qs[2]})', value: 2}")
+          nodes.push("{category: 1, name: '#{frzjhm}', label: '#{row[1]}(#{row[3]})', value: 3}")
         end
-        links.push("{source: '#{frzjhm}', target: '#{qs[1]}', name: '亲属'}")
+        links.push("{source: '#{qymc}', target: '#{frzjhm}', name: '法人代表'}")
+        PgConnector.instance.make_query(@stmts[2].gsub(/\?/, frzjhm)).each_row do |qs|
+          if qs[2].nil?
+            nodes.push("{category: 4, name: '#{qs[1]}', label: '#{qs[0]}', value: 2}")
+          else
+            nodes.push("{category: 4, name: '#{qs[1]}', label: '#{qs[0]}(#{qs[2]})', value: 2}")
+          end
+          links.push("{source: '#{frzjhm}', target: '#{qs[1]}', name: '亲属'}")
+        end
       end
     end
     # 查询股东
     PgConnector.instance.make_query(@stmts[1]).each_row do |row|
-      if row[0] == '20'
+      if row[0] == '20' and !row[2].nil?
         if row[3].nil?
           nodes.push("{category: 2, name: '#{row[2]}', label: '#{row[1]}', value: 3}")
         else
